@@ -19,23 +19,17 @@ resource "azurerm_policy_definition" "tag_policy" {
   policy_rule = data.template_file.policy.rendered
 }
 
-# Data source to fetch subscription details
-data "azurerm_subscription" "subscription" {
-  for_each = var.policy_assignments == []? {}: { for assignment in var.policy_assignments : assignment.subscription_id => assignment }
-  id = each.value.subscription_id
-}
-
 # Resource to create policy assignment
 resource "azurerm_subscription_policy_assignment" "example" {
   for_each = var.policy_assignments == []? {}:{ for assignment in var.policy_assignments : assignment.subscription_id => assignment }
 
-  name                 = "${azurerm_policy_definition.tag_policy.name}_${data.azurerm_subscription.subscription[each.key].display_name}"
+  name                 = "${azurerm_policy_definition.tag_policy.name}_${element(split("/", each.key), length(split("/", each.key)) - 1)}"
   policy_definition_id = azurerm_policy_definition.tag_policy.id
-  subscription_id      = data.azurerm_subscription.subscription[each.key].id
+  subscription_id      = each.key
   enforce              = each.value.enforce_policy
 
   dynamic "non_compliance_message" {
-    for_each = each.value.non_compliance_message == "" ? [] : [1]
+    for_each = each.value.non_compliance_message == "" ? [] : [each.value.non_compliance_message]
     content {
       content = non_compliance_message.value
     }
