@@ -21,7 +21,7 @@ variable "required_tags" {
 variable "policy_effect" {
   type = string
   validation {
-    condition = Contains(["deny","audit"])
+    condition = contains(["deny","audit"],var.policy_effect)
     error_message = "The policy_effect must be either deny or audit."
   }
 }
