@@ -21,13 +21,13 @@ resource "azurerm_policy_definition" "tag_policy" {
 
 # Data source to fetch subscription details
 data "azurerm_subscription" "subscription" {
-  for_each = { for assignment in var.policy_assignments : assignment.subscription_id => assignment }
+  for_each = var.policy_assignments == []? {}: { for assignment in var.policy_assignments : assignment.subscription_id => assignment }
   id = each.value.subscription_id
 }
 
 # Resource to create policy assignment
 resource "azurerm_subscription_policy_assignment" "example" {
-  for_each = { for assignment in var.policy_assignments : assignment.subscription_id => assignment }
+  for_each = var.policy_assignments == []? {}:{ for assignment in var.policy_assignments : assignment.subscription_id => assignment }
 
   name                 = "${azurerm_policy_definition.tag_policy.name}_${data.azurerm_subscription.subscription[each.key].display_name}"
   policy_definition_id = azurerm_policy_definition.tag_policy.id
