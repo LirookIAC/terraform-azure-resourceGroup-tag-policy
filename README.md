@@ -74,9 +74,8 @@ module "policy" {
   - **Validation**: Must not be empty.
 
 - **`management_group_id`**
-  - **Description**: Optional ID of the management group for the policy. Leave empty if not used.
+  - **Description**: Optional ID of the management group for the policy. Leave undeclared if not used.
   - **Type**: `string`
-  - **Default**: `""`
 
 - **`policy_effect`**
   - **Description**: The effect of the policy. Must be either `deny` or `audit`.
@@ -91,6 +90,6 @@ module "policy" {
     - `location               = optional(string, "")`
     - `non_compliance_message = string`
   - **Default**: `[]`
-  - **Validation**: Each object in the list must include a `subscription_id` and `enforce_policy`. The `location` and `non_compliance_message` fields are optional.
+  - **Validation**: Each object in the list must include a `subscription_id`, `non_compliance_message` and `enforce_policy`. The `location`  field is optional.
 
 
