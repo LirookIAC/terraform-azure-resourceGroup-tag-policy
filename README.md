@@ -34,17 +34,6 @@ output "policy_id" {
 
 To use this module, follow these steps:
 
-### Define Module Source
-
-Specify the source path or URL of the module in your Terraform configuration. This could be a local path or a remote repository.
-
-```hcl
-module "policy" {
-  source = "path_to_module_or_repository"
-}
-```
-## Usage
-
 1. **Define Module Source**
 
    Specify the source path or URL of the module in your Terraform configuration. This could be a local path or a remote repository.
