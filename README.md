@@ -79,6 +79,6 @@ To use this module, follow these steps:
     - `location               = optional(string, "")`
     - `non_compliance_message = string`
   - **Default**: `[]`
-  - **Validation**: Each object in the list must include a `subscription_id`, `non_compliance_message` and `enforce_policy`. The `location`  field is optional.
+  - **Validation**: Each object in the list must include a `subscription_id`, `non_compliance_message` and `enforce_policy`. The `location`  field is optional.If undeclared, no assignments are made.
 
 
