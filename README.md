@@ -1,1 +1,19 @@
-# terraform-azure-resourceGroup-tag-policy
+# Azure Consumption Budget Resource Group Module
+
+## Overview
+This module creates an Azure Consumption Budget resource for a specified resource group. It allows you to manage and monitor budget thresholds for Azure resources within the resource group and configure notifications and filters based on your needs.
+
+## Version Constraints
+
+To ensure compatibility with this module, the following version constraints apply:
+
+```hcl
+terraform {
+  required_version = ">= 1.0.0, < 2.0.0"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 3.112.0, < 4.0.0"
+    }
+  }
+}
