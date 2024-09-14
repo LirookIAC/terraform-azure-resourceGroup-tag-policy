@@ -80,5 +80,49 @@ To use this module, follow these steps:
     - `non_compliance_message = string`
   - **Default**: `[]`
   - **Validation**: Each object in the list must include a `subscription_id`, `non_compliance_message` and `enforce_policy`. The `location`  field is optional.If undeclared, no assignments are made.
+ 
+  - ### Example Use
+
+Below is an example configuration showing how to use the module:
+
+```hcl
+# Define the module source
+module "resource_group_tag_policy" {
+  source  = "github.com/LirookIAC/terraform-azure-resourceGroup-tag-policy"
+  policy_display_name = "Enforce governance tags on resource groups"
+  policy_name = "Tag-policy-RG"
+  policy_description = "test"
+  required_tags = ["Owner", "Environment"]
+  policy_effect = "deny"
+  policy_assignments = [
+    {
+      subscription_id = "/subscriptions/abcd9c8b2-bb60-492d-92a9-d1641fb7adf8"
+      enforce_policy = true
+      non_compliance_message = "Non compliant"
+    }
+  ]
+}
+```
+### Explanation
+
+- **`source`**: Specifies the location from where the module is retrieved. In this example, it points to a GitHub repository. Adjust this to match the actual source of your module.
+
+- **`policy_display_name`**: Sets a user-friendly name for the policy as it will appear in the Azure portal. This should be descriptive of what the policy enforces.
+
+- **`policy_name`**: The internal name for the policy definition, which must be unique within the scope of the policy. This name is used for identification in Azure.
+
+- **`policy_description`**: A textual description of what the policy does. This helps users understand the policy's purpose and scope.
+
+- **`required_tags`**: A list of tags that the policy enforces on resource groups. These tags are mandatory for compliance.
+
+- **`policy_effect`**: Defines the impact of the policy. Use `deny` to prevent non-compliant actions or `audit` to log non-compliance without blocking actions.
+
+- **`policy_assignments`**: An array defining where and how the policy is applied:
+  - **`subscription_id`**: The ID of the Azure subscription where the policy will be enforced.
+  - **`enforce_policy`**: A boolean indicating whether the policy should be actively enforced or just audited.
+  - **`non_compliance_message`**: A message that will be shown if a resource fails to comply with the policy.
+
+This configuration ensures that the policy is correctly set up to enforce governance tags on resource groups and assigns it to specified Azure subscriptions. Adjust the values according to your organizational needs and Azure environment.
+
 
 
