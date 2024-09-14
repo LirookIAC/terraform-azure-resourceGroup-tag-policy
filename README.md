@@ -1,7 +1,7 @@
-# Azure Consumption Budget Resource Group Module
+# Azure Policy Definition and Assignment Module
 
 ## Overview
-This module creates an Azure Consumption Budget resource for a specified resource group. It allows you to manage and monitor budget thresholds for Azure resources within the resource group and configure notifications and filters based on your needs.
+This module creates an Azure Policy Definition and assigns it to specified subscriptions. It uses a template file to define the policy rule and supports dynamic policy assignment based on provided parameters.
 
 ## Version Constraints
 
